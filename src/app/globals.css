@@ -1,21 +1,27 @@
+@import "@radix-ui/themes/styles.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+/* Light Theme */
+html.light {
+  --bg-color: var(--color-light-background);
+  --text-color: var(--color-light-foreground);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark Theme */
+html.dark {
+  --bg-color: var(--color-dark-background);
+  --text-color: var(--color-dark-foreground);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
+/* Smooth transitions */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

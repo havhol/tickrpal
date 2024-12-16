@@ -1,0 +1,14 @@
+/* Styles for the Header component */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.headerTitle {
+  font-size: 1.25rem; /* Equivalent to text-xl */
+  font-weight: bold;
+}
