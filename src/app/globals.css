@@ -1,9 +1,5 @@
+@import "modern-css-reset";
 @import "@radix-ui/themes/styles.css";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 
 /* Light Theme */
 html.light {

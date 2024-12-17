@@ -3,9 +3,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
   background-color: var(--color-background);
   color: var(--color-foreground);
+  height: 64px;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .headerTitle {

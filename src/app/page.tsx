@@ -1,10 +1,5 @@
-import { Flex, Text, Button, ThemePanel } from "@radix-ui/themes";
+import Hero from "@/components/Hero";
 
 export default function Home() {
-  return (
-    <Flex direction="column" gap="2">
-      <Text>Hello from Radix Themes :)</Text>
-      <Button>Let's go</Button>
-    </Flex>
-  );
+  return <Hero />;
 }

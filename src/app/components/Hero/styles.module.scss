@@ -1,0 +1,10 @@
+.hero {
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height of the viewport */
+  display: flex; /* Center content */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem;
+}

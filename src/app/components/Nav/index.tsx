@@ -1,8 +1,11 @@
 "use client";
 
+import { IconButton, Link } from "@radix-ui/themes";
+import { RiMoonLine, RiSunLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
-import { IconButton } from "@radix-ui/themes";
-import { RiSunLine, RiMoonLine } from "@remixicon/react";
+
+import SearchBar from "../SearchCompanies";
+import styles from "./styles.module.scss";
 
 const Nav = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -22,11 +25,11 @@ const Nav = () => {
   };
 
   return (
-    <nav className="flex items-center gap-4">
-      {/* Login Link */}
-      <a href="/login" className="text-sm text-gray-800 hover:underline">
-        Login
-      </a>
+    <nav className={styles.nav}>
+      <SearchBar />
+      <Link href="/signin" color="gray">
+        Sign in
+      </Link>
 
       {/* Theme Toggle */}
       <IconButton radius="full" variant="soft" onClick={toggleTheme}>
