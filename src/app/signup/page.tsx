@@ -1,14 +1,13 @@
 // src/app/login/page.tsx
-import SignIn from "@/app/components/SignIn";
+import SignUp from "@/app/components/SignUp";
 import { Container, Flex } from "@radix-ui/themes";
-import React from "react";
 
-const SignInPage = () => (
+const SignUpPage = () => (
   <Container size="4" mx="5">
     <Flex direction="column" justify="center" height="100vh">
-      <SignIn />
+      <SignUp />
     </Flex>
   </Container>
 );
 
-export default SignInPage;
+export default SignUpPage;

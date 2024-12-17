@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Nav from "@/app/components/Nav";
 import styles from "./styles.module.scss";
 import { Container } from "@radix-ui/themes";
 
