@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import routes from "./routes";
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("sb-access-token"); // Supabase session token
 
-  // List protected routes
   const protectedRoutes = ["/dashboard", "/profile"];
 
   if (
@@ -11,8 +11,7 @@ export async function middleware(request: NextRequest) {
   ) {
     if (!token) {
       const url = request.nextUrl.clone();
-      console.log("debug url");
-      url.pathname = "/foo"; // Redirect to sign-in
+      url.pathname = routes.auth.signIn;
       return NextResponse.redirect(url);
     }
   }

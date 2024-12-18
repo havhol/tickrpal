@@ -109,7 +109,7 @@ const SignIn = () => {
           {/* Footer Links */}
           <Flex mt="6" align="center" justify="center">
             <Text size="2">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href={routes.auth.signUp} weight="bold">
                 Sign up
               </Link>
