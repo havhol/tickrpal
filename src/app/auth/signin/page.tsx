@@ -1,5 +1,5 @@
 // src/app/login/page.tsx
-import SignIn from "@/app/components/SignIn";
+import SignIn from "@/components/SignIn";
 import { Container, Flex } from "@radix-ui/themes";
 import React from "react";
 

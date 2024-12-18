@@ -1,5 +1,5 @@
 // src/app/login/page.tsx
-import SignUp from "@/app/components/SignUp";
+import SignUp from "@/components/SignUp";
 import { Container, Flex } from "@radix-ui/themes";
 
 const SignUpPage = () => (

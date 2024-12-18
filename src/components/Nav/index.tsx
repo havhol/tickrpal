@@ -27,7 +27,7 @@ const Nav = () => {
   return (
     <nav className={styles.nav}>
       <SearchBar />
-      <Link href="/signin" color="gray">
+      <Link href="/auth/signin" color="gray">
         Sign in
       </Link>
 

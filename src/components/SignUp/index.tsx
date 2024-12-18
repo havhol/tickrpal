@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import routes from "@/routes";
 import {
   Card,
   TextField,
@@ -38,7 +39,7 @@ const SignUp = () => {
       setError(error.message);
     } else {
       setSuccess(true);
-      router.push("/check-email"); // Redirect to a confirmation page
+      router.push(routes.auth.checkEmail); // Redirect to a confirmation page
     }
   };
 
@@ -108,7 +109,7 @@ const SignUp = () => {
           <Flex mt="6" align="center" justify="center">
             <Text size="2">
               Already have an account?{" "}
-              <Link href="/signin" weight="bold">
+              <Link href={routes.auth.signIn} weight="bold">
                 Sign in
               </Link>
             </Text>

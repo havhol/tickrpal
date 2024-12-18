@@ -11,7 +11,8 @@ export async function middleware(request: NextRequest) {
   ) {
     if (!token) {
       const url = request.nextUrl.clone();
-      url.pathname = "/signin"; // Redirect to sign-in
+      console.log("debug url");
+      url.pathname = "/foo"; // Redirect to sign-in
       return NextResponse.redirect(url);
     }
   }

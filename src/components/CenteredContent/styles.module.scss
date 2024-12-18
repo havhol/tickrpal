@@ -1,0 +1,11 @@
+.centeredContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.blurred {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.6);
+}

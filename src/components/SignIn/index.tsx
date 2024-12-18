@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import routes from "@/routes";
 import {
   Card,
   TextField,
@@ -37,7 +38,7 @@ const SignIn = () => {
       setError("Invalid email or password.");
     } else {
       // Redirect to a secure route upon successful sign-in
-      router.push("/dashboard"); // Replace with your secure route
+      router.push(routes.dashboard); // Replace with your secure route
     }
 
     setLoading(false);
@@ -109,7 +110,7 @@ const SignIn = () => {
           <Flex mt="6" align="center" justify="center">
             <Text size="2">
               Don't have an account?{" "}
-              <Link href="/signup" weight="bold">
+              <Link href={routes.auth.signUp} weight="bold">
                 Sign up
               </Link>
             </Text>
