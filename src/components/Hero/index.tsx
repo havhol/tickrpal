@@ -19,14 +19,15 @@ const Hero = () => {
         <Box mb="5">
           <Text>Case studies</Text>
           <Heading as="h2" size="7" style={{ maxWidth: "500px" }}>
-            World-class teams use Radix Primitives to power their products
+            World-class teams use Radix Primitives to power their products.
+            Convince yourself not others.
           </Heading>
         </Box>
 
         <Grid columns={{ initial: "1", sm: "2" }} gap="5" mb="6">
           <Text size="3" mb="4" style={{ textIndent: "-0.5em" }}>
-            “Radix Primitives are crucial for the Node.js website and are a
-            significant part of Node’s Web Design System.”
+            Scandinavian born. First market out, the Norwegian stock exchange.
+            (OSEBX).
           </Text>
         </Grid>
 

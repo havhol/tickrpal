@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { DialogContent, DialogClose } from "@radix-ui/react-dialog";
-import { createClient } from "@/lib/supabase/client"; // Import your Supabase client
+import React, { useState, useCallback } from "react";
+import { createClient } from "@/lib/supabase/client";
 import styles from "./styles.module.scss";
 import { TextField, Text } from "@radix-ui/themes";
 
@@ -15,17 +14,20 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
   );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
 
   const supabase = createClient();
 
   const handleSearch = async (query: string) => {
+    if (query.length < 2) return; // Skip search for queries with less than 2 characters
     setLoading(true);
     setError("");
+    setHasSearched(false); // Reset this state when a new search starts
     try {
       const { data, error } = await supabase
         .from("companies")
         .select("name, ticker")
-        .ilike("name", `%${query}%`);
+        .or(`name.ilike.${query}%,ticker.ilike.${query}%`); // Match starting with query
       if (error) throw error;
 
       setResults(data || []);
@@ -33,14 +35,28 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
       setError("Unable to fetch results. Please try again later.");
     } finally {
       setLoading(false);
+      setHasSearched(true); // Mark search as completed
     }
   };
+
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let timer: NodeJS.Timeout;
+    return (...args: any[]) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  const debouncedHandleSearch = useCallback(debounce(handleSearch, 300), []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    if (value) handleSearch(value);
-    else setResults([]);
+    if (value) debouncedHandleSearch(value); // Use debounced function
+    else {
+      setResults([]);
+      setHasSearched(false); // Reset when input is cleared
+    }
   };
 
   const handleCompanyClick = (name: string) => {
@@ -51,10 +67,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
     <div className={styles.modalContainer}>
       <label>
         <Text as="div" size="2" mb="1" weight="bold">
-          Company
+          Ticker
         </Text>
         <TextField.Root
-          placeholder="Company name or ticker"
+          placeholder="Name or ticker, eg. NAVA"
           value={searchTerm}
           onChange={handleInputChange}
           autoFocus
@@ -74,9 +90,14 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
           </li>
         ))}
       </ul>
-      {results.length === 0 && searchTerm && !loading && (
-        <p className={styles.noResults}>No results found for "{searchTerm}".</p>
-      )}
+      {hasSearched &&
+        results.length === 0 &&
+        searchTerm.length >= 2 &&
+        !loading && (
+          <p className={styles.noResults}>
+            No results found for "{searchTerm}".
+          </p>
+        )}
     </div>
   );
 };

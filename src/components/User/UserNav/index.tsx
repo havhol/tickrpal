@@ -50,9 +50,9 @@ const UserNav = () => {
           </Button>
         </Dialog.Trigger>
         <Dialog.Content maxWidth="450px" align="start">
-          <Dialog.Title>Search companies</Dialog.Title>
+          <Dialog.Title>Find company</Dialog.Title>
           <Dialog.Description size="2" mb="4">
-            Find your company and start building your knowledge
+            And start building your knowledge
           </Dialog.Description>
           <Flex direction="column" gap="3">
             <SearchModal onCompanySelect={handleCompanySelect} />
