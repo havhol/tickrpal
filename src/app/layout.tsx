@@ -1,8 +1,8 @@
+import HeaderWrapper from "@/layout/HeaderWrapper";
+import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Theme, ThemePanel } from "@radix-ui/themes";
-import HeaderWrapper from "@/layout/HeaderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

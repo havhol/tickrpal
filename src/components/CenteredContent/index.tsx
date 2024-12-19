@@ -5,16 +5,12 @@ import styles from "./styles.module.scss";
 
 type CenteredContentProps = {
   children: React.ReactNode;
-  isBlurred?: boolean;
 };
 
-const CenteredContent = ({
-  children,
-  isBlurred = false,
-}: CenteredContentProps) => {
+const CenteredContent = ({ children }: CenteredContentProps) => {
   return (
     <Flex
-      className={`${styles.centeredContent} ${isBlurred ? styles.blurred : ""}`}
+      className={styles.centeredContent} // Corrected string interpolation
     >
       {children}
     </Flex>

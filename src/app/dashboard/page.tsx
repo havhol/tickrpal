@@ -1,13 +1,29 @@
-// src/app/dashboard/page.tsx
-"use client";
+import { redirect } from "next/navigation";
 
-import withLoading from "@/wrappers/withLoading";
-import DashboardContent from "@/components/Dashboard"; // Your dashboard content
+import { createClient } from "@/lib/supabase/server";
 
-const Dashboard = () => {
-  const DashboardWithLoading = withLoading(DashboardContent);
+export default async function PrivatePage() {
+  const supabase = await createClient();
 
-  return <DashboardWithLoading />;
-};
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/auth/login");
+  }
 
-export default Dashboard;
+  return <p>Hello {data.user.email}</p>;
+}
+
+// // src/app/dashboard/page.tsx
+// "use client";
+
+// import withLoading from "@/wrappers/withLoading";
+// import DashboardContent from "@/components/Dashboard"; // Your dashboard content
+
+// const Dashboard = () => {
+//   console.log("dashboard");
+//   const DashboardWithLoading = withLoading(DashboardContent);
+
+//   return <DashboardWithLoading />;
+// };
+
+// export default Dashboard;

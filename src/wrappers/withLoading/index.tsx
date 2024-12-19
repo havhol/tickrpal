@@ -1,29 +1,38 @@
 "use client";
 
-import { supabase } from "@/lib/supabaseClient";
-import { Flex, Spinner } from "@radix-ui/themes";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import { User } from "@supabase/supabase-js";
+import CenteredContent from "@/components/CenteredContent";
+import { Spinner } from "@radix-ui/themes";
 
-type User = {
-  email: string;
-};
+interface WithLoadingProps {
+  user: User;
+}
 
-const withLoading = (WrappedComponent: React.ComponentType<{ user: User }>) => {
-  return function WithLoadingWrapper() {
+const withLoading = <P extends WithLoadingProps>(
+  WrappedComponent: React.ComponentType<P>
+) => {
+  return function WithLoadingWrapper(props: Omit<P, "user">) {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
+    console.log("i am running");
 
     useEffect(() => {
       const fetchSession = async () => {
+        // Simulate delay for testing purposes
+        await new Promise((resolve) => setTimeout(resolve, 4000));
+
         const { data } = await supabase.auth.getSession();
 
         if (!data?.session) {
-          router.replace("/signin"); // Replace avoids pushing a new history entry
+          router.push("/auth/signin"); // Redirect unauthenticated users
         } else {
-          setUser(data.session.user as User);
+          setUser(data.session.user);
         }
+
         setLoading(false);
       };
 
@@ -31,25 +40,30 @@ const withLoading = (WrappedComponent: React.ComponentType<{ user: User }>) => {
     }, [router]);
 
     if (loading) {
-      // Show loader while checking session
       return (
-        <Flex
-          align="center"
-          justify="center"
-          style={{ height: "100vh", width: "100vw" }}
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backdropFilter: "blur(8px)",
+            zIndex: 9999,
+          }}
         >
-          <Spinner size="3" />
-        </Flex>
+          <CenteredContent>
+            <Spinner size="3" />
+          </CenteredContent>
+        </div>
       );
     }
 
     if (!user) {
-      // Prevent showing content while redirecting
-      return null;
+      return null; // Prevent rendering if no user is available
     }
 
-    // Render the component only when user is authenticated
-    return <WrappedComponent user={user} />;
+    return <WrappedComponent {...(props as P)} user={user} />;
   };
 };
 

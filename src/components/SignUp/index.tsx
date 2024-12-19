@@ -109,7 +109,7 @@ const SignUp = () => {
           <Flex mt="6" align="center" justify="center">
             <Text size="2">
               Already have an account?{" "}
-              <Link href={routes.auth.signIn} weight="bold">
+              <Link href={routes.auth.signIn} weight="bold" highContrast>
                 Sign in
               </Link>
             </Text>

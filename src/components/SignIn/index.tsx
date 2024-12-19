@@ -1,34 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import routes from "@/routes";
-import {
-  Card,
-  TextField,
-  Button,
-  Heading,
-  Text,
-  Link,
-  Box,
-  Flex,
-} from "@radix-ui/themes";
+import * as Form from "@radix-ui/react-form";
+import { Card, Heading, Text, Box, Flex, Button, Link } from "@radix-ui/themes";
 import styles from "./styles.module.scss";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    // Attempt to sign in with Supabase
+    console.log("handle sign in");
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -37,55 +32,77 @@ const SignIn = () => {
     if (error) {
       setError("Invalid email or password.");
     } else {
-      // Redirect to a secure route upon successful sign-in
-      router.push(routes.dashboard); // Replace with your secure route
+      console.log("should redirect");
+      router.push(routes.dashboard);
+      setLoading(false);
     }
 
     setLoading(false);
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.cardContainer}>
-        <Card className={styles.card}>
-          <Box mb="5" style={{ textAlign: "center" }}>
-            <Heading mb="1" size="4">
-              Sign in to Tickrpal
-            </Heading>
-            <Text size="2" color="gray">
-              Welcome back! Please sign in to continue
-            </Text>
-          </Box>
+    <div className={styles.cardContainer}>
+      <Card className={styles.card} variant="surface">
+        <Box mb="5" style={{ textAlign: "center" }}>
+          <Heading mb="1" size="4">
+            Sign in to Tickrpal
+          </Heading>
+          <Text size="1" color="gray">
+            Welcome back! Please sign in to continue
+          </Text>
+        </Box>
 
-          {/* Email Input */}
-          <Box mb="5">
-            <label>
-              <Text size="2" as="div" weight="medium" mb="1">
-                Email
-              </Text>
-              <TextField.Root
+        <Form.Root className={styles.form} onSubmit={handleSignIn}>
+          {/* Email Field */}
+          <Form.Field name="email">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+              }}
+            >
+              <Form.Label className={styles.formLabel}>Email</Form.Label>
+              <Form.Message className={styles.formMessage} match="valueMissing">
+                Please enter your email
+              </Form.Message>
+              <Form.Message className={styles.formMessage} match="typeMismatch">
+                Please provide a valid email
+              </Form.Message>
+            </div>
+            <Form.Control asChild>
+              <input
+                className={styles.input}
+                type="email"
+                required
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
               />
-            </label>
-          </Box>
+            </Form.Control>
+          </Form.Field>
 
-          {/* Password Input */}
-          <Box mb="5">
-            <label>
-              <Text size="2" as="div" weight="medium" mb="1">
-                Password
-              </Text>
-              <TextField.Root
-                placeholder="Enter your password"
+          {/* Password Field */}
+          <Form.Field className={styles.formField} name="password">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+              }}
+            >
+              <Form.Label className={styles.formLabel}>Password</Form.Label>
+              <Form.Message className={styles.formMessage} match="valueMissing">
+                Please enter your password
+              </Form.Message>
+            </div>
+            <Form.Control asChild>
+              <input
+                className={styles.input}
                 type="password"
-                spellCheck="false"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
               />
-            </label>
-          </Box>
+            </Form.Control>
+          </Form.Field>
 
           {/* Error Message */}
           {error && (
@@ -95,28 +112,31 @@ const SignIn = () => {
           )}
 
           {/* Sign In Button */}
-          <Flex mt="6">
+          <Form.Submit asChild>
             <Button
               variant="solid"
               style={{ width: "100%" }}
-              onClick={handleSignIn}
+              // onClick={handleSignIn}
               disabled={loading}
+              loading={loading}
             >
-              {loading ? "Signing in..." : "Continue"}
+              Continue
             </Button>
-          </Flex>
+          </Form.Submit>
+        </Form.Root>
 
-          {/* Footer Links */}
-          <Flex mt="6" align="center" justify="center">
-            <Text size="2">
+        {/* Footer Links */}
+        <Flex mt="6" align="center" justify="center">
+          <Text size="2">
+            <span className={styles.textSpan}>
               Don&apos;t have an account?{" "}
-              <Link href={routes.auth.signUp} weight="bold">
-                Sign up
-              </Link>
-            </Text>
-          </Flex>
-        </Card>
-      </div>
+            </span>
+            <Link href={routes.auth.signUp} weight="bold" color="blue">
+              Sign up
+            </Link>
+          </Text>
+        </Flex>
+      </Card>
     </div>
   );
 };
