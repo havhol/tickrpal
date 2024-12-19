@@ -1,10 +1,11 @@
 "use client";
 
-import { IconButton, Link } from "@radix-ui/themes";
-import { RiMoonLine, RiSunLine } from "@remixicon/react";
+import { Button, IconButton, Link } from "@radix-ui/themes";
+import { RiCommandLine, RiSettings3Line } from "@remixicon/react";
+import { SunIcon, MoonIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+
 import { useEffect, useState } from "react";
 
-import SearchBar from "../SearchCompanies";
 import styles from "./styles.module.scss";
 
 const Nav = () => {
@@ -26,19 +27,12 @@ const Nav = () => {
 
   return (
     <nav className={styles.nav}>
-      <SearchBar />
-      <Link href="/auth/signin" color="gray">
-        Sign in
-      </Link>
-
-      {/* Theme Toggle */}
       <IconButton radius="full" variant="soft" onClick={toggleTheme}>
-        {theme === "light" ? (
-          <RiSunLine size={20} color="currentColor" />
-        ) : (
-          <RiMoonLine size={20} color="currentColor" />
-        )}
+        {theme === "light" ? <SunIcon /> : <MoonIcon />}
       </IconButton>
+      <Link href="/auth/signin" className={styles.signInLink}>
+        Sign In
+      </Link>
     </nav>
   );
 };
