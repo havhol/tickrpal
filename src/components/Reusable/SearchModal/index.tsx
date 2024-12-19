@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { TextField, Text } from "@radix-ui/themes";
 
 interface SearchModalProps {
-  onCompanySelect: (name: string) => void;
+  onCompanySelect: (ticker: string) => void;
 }
 
 const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
@@ -14,20 +14,20 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
   );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
+  const [hasSearched, setHasSearched] = useState(false);
 
   const supabase = createClient();
 
   const handleSearch = async (query: string) => {
-    if (query.length < 2) return; // Skip search for queries with less than 2 characters
+    if (query.length < 2) return;
     setLoading(true);
     setError("");
-    setHasSearched(false); // Reset this state when a new search starts
+    setHasSearched(false);
     try {
       const { data, error } = await supabase
         .from("companies")
         .select("name, ticker")
-        .or(`name.ilike.${query}%,ticker.ilike.${query}%`); // Match starting with query
+        .or(`name.ilike.${query}%,ticker.ilike.${query}%`);
       if (error) throw error;
 
       setResults(data || []);
@@ -35,7 +35,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
       setError("Unable to fetch results. Please try again later.");
     } finally {
       setLoading(false);
-      setHasSearched(true); // Mark search as completed
+      setHasSearched(true);
     }
   };
 
@@ -52,21 +52,21 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    if (value) debouncedHandleSearch(value); // Use debounced function
+    if (value) debouncedHandleSearch(value);
     else {
       setResults([]);
-      setHasSearched(false); // Reset when input is cleared
+      setHasSearched(false);
     }
   };
 
-  const handleCompanyClick = (name: string) => {
-    onCompanySelect(name);
+  const handleCompanyClick = (ticker: string) => {
+    onCompanySelect(ticker); // Pass the selected ticker
   };
 
   return (
     <div className={styles.modalContainer}>
       <label>
-        <Text as="div" size="2" mb="1" weight="bold">
+        <Text as="div" size="2" mb="2" weight="bold">
           Ticker
         </Text>
         <TextField.Root
@@ -84,7 +84,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ onCompanySelect }) => {
           <li
             key={company.ticker}
             className={styles.resultItem}
-            onClick={() => handleCompanyClick(company.name)}
+            onClick={() => handleCompanyClick(company.ticker)}
           >
             {company.name} ({company.ticker})
           </li>
