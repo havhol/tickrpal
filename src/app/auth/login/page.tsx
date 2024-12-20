@@ -1,13 +1,12 @@
-import { login } from "./actions";
+import SignIn from "@/components/SignIn"; // Import the SignIn component
+import { Container, Flex } from "@radix-ui/themes";
 
-export default function LoginPage() {
-  return (
-    <form>
-      <label htmlFor="email">Email:</label>
-      <input id="email" name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input id="password" name="password" type="password" required />
-      <button formAction={login}>Log in</button>
-    </form>
-  );
-}
+const LoginPage = () => (
+  <Container size="4" mx="5">
+    <Flex direction="column" justify="center" height="100vh">
+      <SignIn /> {/* Pass formAction as a prop */}
+    </Flex>
+  </Container>
+);
+
+export default LoginPage;

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+import { Container } from "@radix-ui/themes";
 
 export default async function PrivatePage() {
   const supabase = await createClient();
@@ -10,20 +11,9 @@ export default async function PrivatePage() {
     redirect("/auth/login");
   }
 
-  return <p>Hello {data.user.email}</p>;
+  return (
+    <Container maxWidth="none" mx="5">
+      <p>Hello {data.user.email}</p>
+    </Container>
+  );
 }
-
-// // src/app/dashboard/page.tsx
-// "use client";
-
-// import withLoading from "@/wrappers/withLoading";
-// import DashboardContent from "@/components/Dashboard"; // Your dashboard content
-
-// const Dashboard = () => {
-//   console.log("dashboard");
-//   const DashboardWithLoading = withLoading(DashboardContent);
-
-//   return <DashboardWithLoading />;
-// };
-
-// export default Dashboard;

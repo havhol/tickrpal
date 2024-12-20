@@ -1,26 +1,13 @@
-import { signup } from "./actions";
+import SignUp from "@/components/SignUp";
+import { Container, Flex } from "@radix-ui/themes";
+import { signup } from "./actions"; // Import the formAction function
 
-export default function SignUpPage() {
-  return (
-    <form>
-      <label htmlFor="email">Email:</label>
-      <input id="email" name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input id="password" name="password" type="password" required />
-      <button formAction={signup}>Sign up</button>
-    </form>
-  );
-}
+const SignUpPage = () => (
+  <Container mx="5">
+    <Flex direction="column" justify="center" height="100vh">
+      <SignUp formAction={signup} /> {/* Pass formAction as a prop */}
+    </Flex>
+  </Container>
+);
 
-// import SignUp from "@/components/SignUp";
-// import { Container, Flex } from "@radix-ui/themes";
-
-// const SignUpPage = () => (
-//   <Container size="4" mx="5">
-//     <Flex direction="column" justify="center" height="100vh">
-//       {/* <SignUp /> */}
-//     </Flex>
-//   </Container>
-// );
-
-// export default SignUpPage;
+export default SignUpPage;

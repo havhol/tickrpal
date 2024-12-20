@@ -5,7 +5,8 @@
   align-items: center;
   background-color: var(--color-background);
   color: var(--color-foreground);
-  height: 64px;
+  height: 48px;
+  box-shadow: 0 1px var(--gray-a4);
 }
 
 .headerTitle {

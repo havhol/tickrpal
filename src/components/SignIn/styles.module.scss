@@ -10,11 +10,6 @@
   box-sizing: border-box;
 }
 
-.cardContainer {
-  width: 100%;
-  max-width: 400px;
-}
-
 .card {
   padding: 32px;
   border-radius: 8px;
@@ -22,6 +17,8 @@
     rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
     rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
   border: 0.5px inset rgba(0, 0, 0, 0.03);
+  max-width: 400px;
+  width: 100%;
 
   &::before,
   &::after {

@@ -28,104 +28,32 @@ const InternalDropdownMenu = () => {
           sideOffset={5}
         >
           <DropdownMenu.Item className={styles.DropdownMenuItem}>
-            New Tab <div className={styles.RightSlot}>⌘+T</div>
+            havholmail
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Dashboard
           </DropdownMenu.Item>
           <DropdownMenu.Item className={styles.DropdownMenuItem}>
-            New Window <div className={styles.RightSlot}>⌘+N</div>
+            Playground
           </DropdownMenu.Item>
-          <DropdownMenu.Item className={styles.DropdownMenuItem} disabled>
-            New Private Window <div className={styles.RightSlot}>⇧+⌘+N</div>
+          <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Settings
           </DropdownMenu.Item>
-          <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger className={styles.DropdownMenuSubTrigger}>
-              More Tools
-              <div className={styles.RightSlot}>
-                <ChevronRightIcon />
-              </div>
-            </DropdownMenu.SubTrigger>
-            <DropdownMenu.Portal>
-              <DropdownMenu.SubContent
-                className={styles.DropdownMenuSubContent}
-                sideOffset={2}
-                alignOffset={-5}
-              >
-                <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                  Save Page As… <div className={styles.RightSlot}>⌘+S</div>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                  Create Shortcut…
-                </DropdownMenu.Item>
-                <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                  Name Window…
-                </DropdownMenu.Item>
-                <DropdownMenu.Separator
-                  className={styles.DropdownMenuSeparator}
-                />
-                <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                  Developer Tools
-                </DropdownMenu.Item>
-              </DropdownMenu.SubContent>
-            </DropdownMenu.Portal>
-          </DropdownMenu.Sub>
-
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Profile
+          </DropdownMenu.Item>
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Cheatsheet
+          </DropdownMenu.Item>
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Account
+          </DropdownMenu.Item>
           <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
-
-          <DropdownMenu.CheckboxItem
-            className={styles.DropdownMenuCheckboxItem}
-            checked={bookmarksChecked}
-            onCheckedChange={setBookmarksChecked}
-          >
-            <DropdownMenu.ItemIndicator
-              className={styles.DropdownMenuItemIndicator}
-            >
-              <CheckIcon />
-            </DropdownMenu.ItemIndicator>
-            Show Bookmarks <div className={styles.RightSlot}>⌘+B</div>
-          </DropdownMenu.CheckboxItem>
-          <DropdownMenu.CheckboxItem
-            className={styles.DropdownMenuCheckboxItem}
-            checked={urlsChecked}
-            onCheckedChange={setUrlsChecked}
-          >
-            <DropdownMenu.ItemIndicator
-              className={styles.DropdownMenuItemIndicator}
-            >
-              <CheckIcon />
-            </DropdownMenu.ItemIndicator>
-            Show Full URLs
-          </DropdownMenu.CheckboxItem>
-
-          <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
-
-          <DropdownMenu.Label className={styles.DropdownMenuLabel}>
-            People
-          </DropdownMenu.Label>
-          <DropdownMenu.RadioGroup value={person} onValueChange={setPerson}>
-            <DropdownMenu.RadioItem
-              className={styles.DropdownMenuRadioItem}
-              value="pedro"
-            >
-              <DropdownMenu.ItemIndicator
-                className={styles.DropdownMenuItemIndicator}
-              >
-                <DotFilledIcon />
-              </DropdownMenu.ItemIndicator>
-              Pedro Duarte
-            </DropdownMenu.RadioItem>
-            <DropdownMenu.RadioItem
-              className={styles.DropdownMenuRadioItem}
-              value="colm"
-            >
-              <DropdownMenu.ItemIndicator
-                className={styles.DropdownMenuItemIndicator}
-              >
-                <DotFilledIcon />
-              </DropdownMenu.ItemIndicator>
-              Colm Tuite
-            </DropdownMenu.RadioItem>
-          </DropdownMenu.RadioGroup>
-
-          <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />
+          <DropdownMenu.Item className={styles.DropdownMenuItem}>
+            Log out <div className={styles.RightSlot}>⌘+N</div>
+          </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
