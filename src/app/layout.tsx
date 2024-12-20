@@ -1,10 +1,10 @@
-import Header from "@/components/Header";
+import Header from "@/components/Layout/Header";
+import { CustomUser, fetchUser } from "@/lib/supabase/fetchUser"; // Import the fetchUser function
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { fetchUser, CustomUser } from "@/lib/supabase/fetchUser"; // Import the fetchUser function
 import "./globals.css";
-import SimplifiedHeader from "@/components/SimplifiedHeader";
+import { AuthProvider } from "@/context/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +35,10 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Theme accentColor="blue" radius="medium">
-          {/* Pass the user data to the Header */}
-          <Header user={user} />
-          {children}
+          <AuthProvider>
+            <Header user={user} />
+            {children}
+          </AuthProvider>
         </Theme>
       </body>
     </html>

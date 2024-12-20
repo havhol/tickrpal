@@ -6,8 +6,8 @@ import { RiCommandLine, RiSettings3Line } from "@remixicon/react";
 
 import { useEffect, useState } from "react";
 
-import InternalDropdownMenu from "@/components/DropdownMenu";
-import SearchModal from "@/components/Reusable/SearchModal";
+import InternalDropdownMenu from "@/components/Layout/Nav/DropdownMenu";
+import SearchModal from "@/components/Shared/SearchModal";
 import { useRouter } from "next/navigation";
 import styles from "./styles.module.scss";
 

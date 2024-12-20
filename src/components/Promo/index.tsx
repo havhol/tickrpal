@@ -12,7 +12,7 @@ import {
 } from "@radix-ui/themes";
 import { RiArrowRightLine } from "@remixicon/react";
 
-const Hero = () => {
+const Promo = () => {
   return (
     <Container size="4" mx="5">
       <Flex direction="column" justify="center" height="100vh">
@@ -71,4 +71,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Promo;

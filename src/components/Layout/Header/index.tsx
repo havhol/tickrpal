@@ -1,9 +1,9 @@
 "use client";
 
-import Nav from "@/components/Nav";
-import UserNav from "@/components/User/UserNav";
+import Nav from "@/components/Layout/Nav";
+import UserNav from "@/components/Layout/Nav/UserNav";
 import { Container, Flex } from "@radix-ui/themes";
-import Logo from "../Logo";
+import Logo from "@/components/Shared/Logo";
 import styles from "./styles.module.scss";
 
 type HeaderProps = {
