@@ -1,19 +1,11 @@
-import React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import {
-  HamburgerMenuIcon,
-  DotFilledIcon,
-  CheckIcon,
-  ChevronRightIcon,
-} from "@radix-ui/react-icons";
-import styles from "./styles.module.scss";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { IconButton } from "@radix-ui/themes";
+import React from "react";
+import styles from "./styles.module.scss";
+import { logout } from "@/app/auth/logout/actions";
 
 const InternalDropdownMenu = () => {
-  const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
-  const [urlsChecked, setUrlsChecked] = React.useState(false);
-  const [person, setPerson] = React.useState("pedro");
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -51,8 +43,11 @@ const InternalDropdownMenu = () => {
             Account
           </DropdownMenu.Item>
           <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
-          <DropdownMenu.Item className={styles.DropdownMenuItem}>
-            Log out <div className={styles.RightSlot}>⌘+N</div>
+          <DropdownMenu.Item
+            className={styles.DropdownMenuItem}
+            onClick={logout}
+          >
+            Log out
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>

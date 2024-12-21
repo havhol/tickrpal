@@ -9,10 +9,11 @@ interface NoteCardProps {
     created_at: string;
   };
   onDelete: () => void;
+  isDeleting: boolean;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ note, onDelete }) => (
-  <Card variant="surface" shadow="sm" p="4">
+const NoteCard: React.FC<NoteCardProps> = ({ note, onDelete, isDeleting }) => (
+  <Card variant="surface">
     <Flex direction="column" gap="2">
       <Text size="3" weight="bold">
         {note.ticker}
@@ -31,7 +32,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onDelete }) => (
         onClick={onDelete}
         style={{ marginTop: "auto" }}
       >
-        Delete
+        {isDeleting ? "Deleting..." : "Delete"}
       </Button>
     </Flex>
   </Card>

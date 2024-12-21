@@ -30,7 +30,7 @@ const Nav = () => {
       <IconButton radius="full" variant="soft" onClick={toggleTheme}>
         {theme === "light" ? <SunIcon /> : <MoonIcon />}
       </IconButton>
-      <Link href="/auth/signin" className={styles.signInLink}>
+      <Link href="/auth/login" className={styles.signInLink}>
         Sign In
       </Link>
     </nav>

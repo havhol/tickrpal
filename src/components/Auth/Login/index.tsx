@@ -1,129 +1,137 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Container, Button, Flex, Text } from "@radix-ui/themes";
-import AddNoteModal from "@/components/Notes/AddNoteModal";
-import NoteCard from "@/components/Notes/NoteCard";
+import routes from "@/routes";
+import * as Form from "@radix-ui/react-form";
+import { Card, Heading, Text, Box, Flex, Button, Link } from "@radix-ui/themes";
 import styles from "./styles.module.scss";
 
-const DashboardPage = () => {
-  const [notes, setNotes] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
   const supabase = createClient();
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      setLoading(true);
-      setError("");
-
-      const { data: user, error: authError } = await supabase.auth.getUser();
-      if (authError || !user) {
-        router.push("/auth/login");
-        return;
-      }
-
-      const { data, error: notesError } = await supabase
-        .from("notes")
-        .select("*")
-        .eq("user_id", user.user.id); // Access user ID properly
-
-      if (notesError) {
-        setError("Failed to fetch notes. Please try again later.");
-      } else {
-  //       Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
-  // Type 'any[]' is not assignable to type 'never[]'.
-  //   Type 'any' is not assignable to type 'never'.ts(2345)
-        setNotes(data || []);
-      }
-
-      setLoading(false);
-    };
-
-    fetchNotes();
-  }, [router, supabase]);
-
-//   Parameter 'newNote' implicitly has an 'any' type.ts(7006)
-// (parameter) newNote: any
-  const handleAddNote = async (newNote) => {
-    try {
-      const { data, error } = await supabase
-        .from("notes")
-        .insert(newNote)
-        .select()
-        .single();
-      if (error) throw error;
-      setNotes((prev) => [...prev, data]);
-    } catch (err) {
-      setError("Failed to add note. Please try again later.");
-    }
-  };
-
-  const handleDeleteNote = async (id) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoading(true);
     setError("");
 
-    try {
-      const { error } = await supabase.from("notes").delete().eq("id", id);
-      if (error) throw error;
-      setNotes((prev) => prev.filter((note) => note.id !== id));
-    } catch (err) {
-      setError("Failed to delete note. Please try again later.");
-    } finally {
-      setLoading(false);
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError("Invalid email or password."); // Show error message
+    } else {
+      router.push(routes.dashboard); // Redirect on success
     }
   };
 
   return (
-    <Container maxWidth="none" mx="5" className={styles.dashboardContainer}>
-      <Flex direction="column" gap="4">
-        <Text size="4" weight="bold">
-          Dashboard
+    <Card className={styles.card} variant="surface">
+      <Box mb="5" style={{ textAlign: "center" }}>
+        <Heading mb="1" size="4">
+          Sign in to Tickrpal
+        </Heading>
+        <Text size="1" color="gray">
+          Welcome back! Please sign in to continue
         </Text>
+      </Box>
+
+      <Form.Root className={styles.form} onSubmit={handleLogin}>
+        {/* Email Field */}
+        <Form.Field name="email">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+            }}
+          >
+            <Form.Label className={styles.formLabel}>Email</Form.Label>
+            <Form.Message className={styles.formMessage} match="valueMissing">
+              Please enter your email
+            </Form.Message>
+            <Form.Message className={styles.formMessage} match="typeMismatch">
+              Please provide a valid email
+            </Form.Message>
+          </div>
+          <Form.Control asChild>
+            <input
+              className={styles.input}
+              type="email"
+              required
+              placeholder="Enter your email"
+            />
+          </Form.Control>
+        </Form.Field>
+
+        {/* Password Field */}
+        <Form.Field className={styles.formField} name="password">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+            }}
+          >
+            <Form.Label className={styles.formLabel}>Password</Form.Label>
+            <Form.Message className={styles.formMessage} match="valueMissing">
+              Please enter your password
+            </Form.Message>
+          </div>
+          <Form.Control asChild>
+            <input
+              className={styles.input}
+              type="password"
+              required
+              placeholder="Enter your password"
+            />
+          </Form.Control>
+        </Form.Field>
 
         {/* Error Message */}
         {error && (
-          <Text size="2" color="red">
+          <Text size="2" color="red" mb="4">
             {error}
           </Text>
         )}
 
-        {/* Add Note Button */}
-        <Button onClick={() => setIsModalOpen(true)}>Add Note</Button>
-        <AddNoteModal
-        // Type '{ isOpen: boolean; onClose: () => void; onAddNote: (newNote: any) => Promise<void>; }' is not assignable to type 'IntrinsicAttributes & AddNoteModalProps'.
-        // Property 'isOpen' does not exist on type 'IntrinsicAttributes & AddNoteModalProps'.ts(2322)
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onAddNote={handleAddNote}
-        />
+        {/* Sign In Button */}
+        <Form.Submit asChild>
+          <Button
+            variant="solid"
+            style={{ width: "100%" }}
+            disabled={loading}
+            loading={loading}
+          >
+            {loading ? "Signing in..." : "Continue"}
+          </Button>
+        </Form.Submit>
+      </Form.Root>
 
-        {/* Notes List */}
-        {loading ? (
-          <Text size="3">Loading notes...</Text>
-        ) : (
-          <Flex direction="column" gap="3">
-            {notes.length ? (
-              notes.map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onDelete={() => handleDeleteNote(note.id)}
-                />
-              ))
-            ) : (
-              <Text size="3">No notes found. Add your first note!</Text>
-            )}
-          </Flex>
-        )}
+      {/* Footer Links */}
+      <Flex mt="6" align="center" justify="center">
+        <Text size="2">
+          <span className={styles.textSpan}>Don&apos;t have an account? </span>
+          <Link href={routes.auth.signUp} weight="bold" color="blue">
+            Sign up
+          </Link>
+        </Text>
       </Flex>
-    </Container>
+    </Card>
   );
 };
 
-export default DashboardPage;
+export default Login;
