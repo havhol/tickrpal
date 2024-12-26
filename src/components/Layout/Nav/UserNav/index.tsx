@@ -1,13 +1,17 @@
 "use client";
 
-import { MagnifyingGlassIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { Button, Dialog, Flex, IconButton, Link } from "@radix-ui/themes";
-import { RiCommandLine, RiSettings3Line } from "@remixicon/react";
+import {
+  MagnifyingGlassIcon,
+  MoonIcon,
+  QuestionMarkCircledIcon,
+  SunIcon,
+} from "@radix-ui/react-icons";
+import { Button, Dialog, Flex, IconButton } from "@radix-ui/themes";
+import { RiInbox2Line } from "@remixicon/react";
 
 import { useEffect, useState } from "react";
 
-import InternalDropdownMenu from "@/components/Layout/Nav/DropdownMenu";
-import SearchModal from "@/components/Shared/SearchModal";
+import SearchModal from "@/components/shared/SearchModal";
 import { useRouter } from "next/navigation";
 import styles from "./styles.module.scss";
 
@@ -38,17 +42,11 @@ const UserNav = () => {
 
   return (
     <nav className={styles.nav}>
-      <Link href="/dashboard" color="gray">
-        Dashboard
-      </Link>
-      <Link href="/dashboard" color="gray">
-        Playground
-      </Link>
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Dialog.Trigger asChild>
-          <Button>
-            <MagnifyingGlassIcon /> Search
-          </Button>
+        <Dialog.Trigger>
+          <IconButton>
+            <MagnifyingGlassIcon />
+          </IconButton>
         </Dialog.Trigger>
         <Dialog.Content maxWidth="450px" align="start">
           <Dialog.Title>Find company</Dialog.Title>
@@ -59,7 +57,7 @@ const UserNav = () => {
             <SearchModal onCompanySelect={handleCompanySelect} />
           </Flex>
           <Flex gap="3" mt="4" justify="end">
-            <Dialog.Close asChild>
+            <Dialog.Close>
               <Button variant="soft" color="gray">
                 Cancel
               </Button>
@@ -67,18 +65,22 @@ const UserNav = () => {
           </Flex>
         </Dialog.Content>
       </Dialog.Root>
-
-      <IconButton radius="full" variant="soft" onClick={toggleTheme}>
-        <RiCommandLine size={15} color="currentColor" />
-      </IconButton>
-      <IconButton radius="full" variant="soft" onClick={toggleTheme}>
-        <RiSettings3Line size={18} />
-      </IconButton>
       {/* Theme Toggle */}
-      <IconButton radius="full" variant="soft" onClick={toggleTheme}>
+      <Button size="1" variant="soft" color="gray">
+        Feedback
+      </Button>
+      <IconButton radius="full" variant="ghost" onClick={toggleTheme}>
         {theme === "light" ? <SunIcon /> : <MoonIcon />}
       </IconButton>
-      <InternalDropdownMenu />
+      <IconButton variant="ghost">
+        <MagnifyingGlassIcon />
+      </IconButton>
+      <IconButton variant="ghost">
+        <QuestionMarkCircledIcon />
+      </IconButton>
+      <IconButton variant="ghost">
+        <RiInbox2Line size={15} />
+      </IconButton>
     </nav>
   );
 };

@@ -5,6 +5,9 @@
 html.light {
   --bg-color: var(--color-light-background);
   --text-color: var(--color-light-foreground);
+  --tickrpal-bg: var(--gray-2); /* Radix gray for light backgrounds */
+  --tickrpal-bg-nav: var(--gray-1); /* Slightly lighter gray */
+  --tickrpal-border: var(--gray-6); /* Border color */
   background-color: var(--bg-color);
   color: var(--text-color);
 }
@@ -13,6 +16,9 @@ html.light {
 html.dark {
   --bg-color: var(--color-dark-background);
   --text-color: var(--color-dark-foreground);
+  --tickrpal-bg: inherit; /* Radix gray for dark backgrounds */
+  --tickrpal-bg-nav: inherit; /* Slightly lighter gray for dark mode */
+  --tickrpal-border: var(--gray-6); /* Dark border color */
   background-color: var(--bg-color);
   color: var(--text-color);
 }

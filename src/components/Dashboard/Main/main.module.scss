@@ -1,0 +1,13 @@
+.main {
+  flex: 1; /* Equivalent to flex-1 */
+  display: flex;
+  flex-direction: column; /* Equivalent to flex-col */
+  overflow-y: auto; /* Equivalent to overflow-y-auto */
+}
+
+.content {
+  //   padding: 1.5rem; /* Equivalent to p-6 */
+  display: flex;
+  flex-direction: column;
+  //   gap: 1.5rem; /* Equivalent to space-y-6 */
+}

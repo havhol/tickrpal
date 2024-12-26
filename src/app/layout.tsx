@@ -1,4 +1,3 @@
-import Header from "@/components/Layout/Header";
 import { CustomUser, fetchUser } from "@/lib/supabase/fetchUser"; // Import the fetchUser function
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
@@ -34,11 +33,8 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme accentColor="blue" radius="medium">
-          <AuthProvider>
-            <Header user={user} />
-            {children}
-          </AuthProvider>
+        <Theme accentColor="orange" radius="medium">
+          {children}
         </Theme>
       </body>
     </html>

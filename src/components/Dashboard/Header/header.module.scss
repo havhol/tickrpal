@@ -1,0 +1,47 @@
+.header {
+  height: 3.5rem; /* Equivalent to h-14 */
+  display: flex;
+  align-items: center;
+  padding: 0 1rem; /* Equivalent to px-4 */
+  background-color: var(--tickrpal-bg-nav);
+  border-bottom: 1px solid var(--tickrpal-border);
+  max-height: 3rem;
+  min-height: 3rem;
+}
+
+.headerContent {
+  flex: 1; /* Equivalent to flex-1 */
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.125rem; /* Equivalent to text-lg */
+}
+
+.status {
+  margin-left: 0.5rem; /* Equivalent to ml-2 */
+  font-size: 0.75rem; /* Equivalent to text-xs */
+  background-color: #4b5563; /* Equivalent to bg-gray-600 */
+  padding: 0.25rem 0.5rem; /* Equivalent to px-2 py-1 */
+  border-radius: 0.25rem; /* Equivalent to rounded */
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Equivalent to space-x-2 */
+}
+
+.button {
+  font-size: 0.875rem; /* Equivalent to text-sm */
+  background-color: #4b5563; /* Equivalent to bg-gray-600 */
+  padding: 0.5rem 0.75rem; /* Equivalent to px-3 py-1 */
+  border-radius: 0.25rem; /* Equivalent to rounded */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #6b7280; /* Equivalent to hover:bg-gray-500 */
+  }
+}

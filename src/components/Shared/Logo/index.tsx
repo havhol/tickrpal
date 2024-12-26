@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./styles.module.scss";
+import styles from "./logo.module.scss";
 
 interface LogoProps {
   size?: number; // Default to 40px

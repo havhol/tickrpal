@@ -17,6 +17,7 @@
     "@remixicon/react": "^4.5.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
+    "clsx": "^2.1.1",
     "csv-parser": "^3.0.0",
     "fs": "^0.0.1-security",
     "modern-css-reset": "^1.4.0",

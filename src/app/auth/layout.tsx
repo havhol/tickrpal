@@ -1,4 +1,4 @@
-import CenteredContent from "@/components/Shared/CenteredContent";
+import CenteredContent from "@/components/shared/CenteredContent";
 
 export default function AuthLayout({
   children,

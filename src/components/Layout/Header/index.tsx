@@ -3,7 +3,7 @@
 import Nav from "@/components/Layout/Nav";
 import UserNav from "@/components/Layout/Nav/UserNav";
 import { Container, Flex } from "@radix-ui/themes";
-import Logo from "@/components/Shared/Logo";
+import Logo from "@/components/shared/Logo";
 import styles from "./styles.module.scss";
 
 type HeaderProps = {

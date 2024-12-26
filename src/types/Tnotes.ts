@@ -1,10 +1,10 @@
 // types/notes.ts
-export interface Note {
+export interface TNote {
   id: string;
-  user_id: string;
   ticker: string;
   note: string;
   category: string;
   created_at: string;
+  user_id: string;
   updated_at: string;
 }
